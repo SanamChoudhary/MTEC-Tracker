@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style type="text/css">
+      .sidenav {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: LightGreen;
+        overflow-x: hidden;
+        padding-top: 20px;
+      }
+
+      .sidenav a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #818181;
+        display: flex;
+        align-items: center;
+        font-family: Helvetica;
+      }
+
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+
+      .sidenav a i {
+        margin-right: 10px;
+      }
+
+      .bg_color {
+        background-color: ghostwhite;
+      }
+
+      .main {
+        margin-left: 200px;
+        padding: 0px 10px;
+      }
+    </style>
+
+    <title> {% block title %}MTEC{% endblock %} </title>
+  </head>
+
+<body class="bg_color">
+  <div class="sidenav">
+    <a href="/home"><i class="fas fa-home"></i> Home </a>
+    <a href="/create"><i class="fas fa-plus-circle"></i> Create </a>
+    <a href="/view"><i class="fas fa-eye"></i> View </a>
+    <a href="/functions"><i class="fas fa-cogs"></i> Functions </a>
+    <a href="/admin"><i class="fas fa-user-shield"></i> Admin </a>
+    <a href="https://www.instagram.com/cleanupgivebackmtec/" target="_blank"><i class="fab fa-instagram"></i> Instagram </a>
+  </div>
+  <div id="content" name="content" class="main">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>

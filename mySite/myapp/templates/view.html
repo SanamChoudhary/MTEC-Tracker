@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %} MTEC {% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Cleanups</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .cleanup-container {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .cleanup-header {
+            cursor: pointer;
+            background-color: #f7f7f7;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .cleanup-header:hover {
+            background-color: #e7e7e7;
+        }
+        .student-list {
+            display: none;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .student-list li {
+            list-style-type: disc;
+        }
+    </style>
+    <script>
+        function toggleStudents(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Cleanups</h1>
+    {% for cleanup in cleanup_data %}
+        <div class="cleanup-container">
+            <div class="cleanup-header" onclick="toggleStudents('students-{{ cleanup.cleanup.id }}')">
+                <h2>{{ cleanup.cleanup.date }}</h2>
+            </div>
+            <ul id="students-{{ cleanup.cleanup.id }}" class="student-list">
+                {% for student in cleanup.students %}
+                    <li>{{ student.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}

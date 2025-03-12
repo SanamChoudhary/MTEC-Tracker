@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} MTEC {% endblock %}
+{% block content %}
+<html>
+<head>
+    <title>Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .chart-container {
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('cleanupChart').getContext('2d');
+            var cleanupChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ cleanup_dates|safe }},
+                    datasets: [{
+                        label: 'Number of Students',
+                        data: {{ student_counts|safe }},
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="chart-container">
+        <h1>Student Participation in Cleanups</h1>
+        <canvas id="cleanupChart" width="400" height="200"></canvas>
+    </div>
+    <div>
+        <h2>Debug Output</h2>
+        <p>Cleanup Dates: {{ cleanup_dates }}</p>
+        <p>Student Counts: {{ student_counts }}</p>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %} MTEC {% endblock %}
+{% block content %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        h1, h2 {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        hr {
+            border: none;              
+            height: 5px;            
+            background-color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .student-form {
+            margin-bottom: 20px;
+        }
+        .student-form:last-child {
+            margin-bottom: 0;
+        }
+        .student-form input {
+            font-family: 'Roboto', sans-serif;
+            padding-left: 30px; /* Space for the icon */
+        }
+        .student-form .input-icon {
+            position: relative;
+        }
+        .student-form .input-icon i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <body>
+        <h1>MTEC Cleanups</h1>
+        <h2>Create a new Cleanup Below</h2>
+        <hr>
+        <form method="POST" action="/create/">
+            {% csrf_token %}
+            {{ cleanupForm.as_p }}
+
+            <div id="student-formset">
+                {{ studentFormSet.management_form }}
+                {% for form in studentFormSet %}
+                    <div class="student-form">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                            {{ form.as_p }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const addStudentBtn = document.getElementById('add-student-btn');
+                const studentFormset = document.getElementById('student-formset');
+                let formIdx = {{ studentFormSet.total_form_count }};
+
+                addStudentBtn.addEventListener('click', function() {
+                    const newForm = studentFormset.children[0].cloneNode(true);
+                    const formRegex = RegExp(`form-(\\d){1}-`, 'g');
+                    formIdx++;
+                    newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formIdx}-`);
+                    studentFormset.appendChild(newForm);
+                });
+            });
+        </script>
+    </body>
+{% endblock %}

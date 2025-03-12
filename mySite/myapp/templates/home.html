@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %} MTEC {% endblock %}
+{% block content %}
+
+<style>
+    body {
+        background-color: ghostwhite;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 20px;
+        font-size: 2.5em;
+    }
+
+    .content {
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    hr {
+        border: none;
+        height: 4px;
+        background-color: black;
+        width: 50%;
+        margin: 20px auto;
+    }
+
+    .carousel {
+        position: relative;
+        max-width: 600px;
+        margin: 20px auto;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel img {
+        width: 100%;
+        display: none;
+    }
+
+    .carousel img.active {
+        display: block;
+    }
+
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .carousel-controls button {
+        padding: 10px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+        background-color: black;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+
+    .carousel-controls button:hover {
+        background-color: gray;
+    }
+</style>
+
+<body>
+    <h1>Welcome to Maine Township Coalition East!</h1>
+    <hr>
+    <div class="content">
+        <p>We’re MTEC, a group of high school students from Maine Township High School East. 
+        We advocate for institutional change through the exploration of more sustainable 
+        district policies and contribute to environmental alleviation through forest, 
+        park, campus, and city clean-ups.</p>
+    </div>
+
+    <!-- Image Carousel -->
+    <div class="carousel">
+        <img src="https://patersontimes.com/wp-content/uploads/2015/04/paterson-students-cleaning-great-falls.jpg" alt="Image 1">
+        <img src="https://th.bing.com/th/id/R.53944a7fc2fbc425bbeb70ae22e348be?rik=mf%2f33UkclVHwVA&riu=http%3a%2f%2ffairingtones.dekalb.k12.ga.us%2fGalleryImages%2f20141271561346_image.JPG&ehk=GbzYqQUdg2MMIbYFoyP%2fnc1Wd7eos7Sb6NhQ%2brhD9NA%3d&risl=&pid=ImgRaw&r=0" alt="Image 2">
+        <img src="https://pgcar.com/photoalbum/2020/Growing_Green_with_Pride_Community_Clean-up/img/f_f04.jpg" alt="Image 3">
+    </div>
+
+    <div class="carousel-controls">
+        <button onclick="prevImage()">&#10094; Prev</button>
+        <button onclick="nextImage()">Next &#10095;</button>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const images = document.querySelectorAll('.carousel img');
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+    </script>
+</body>
+
+{% endblock %}
